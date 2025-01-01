@@ -3,6 +3,7 @@ import session from "express-session";
 import passport from "passport";
 import path from "path";
 import { config } from "dotenv";
+import indexRouter from "./routes/routes";
 
 config();
 const app = express();
@@ -21,6 +22,8 @@ app.use(
   })
 );
 app.use(passport.session());
+
+app.use(indexRouter);
 
 app.get("/", (req, res) => {
   res.render("index");
