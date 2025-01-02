@@ -42,11 +42,9 @@ passport.use(
     }
   })
 );
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
-
 passport.deserializeUser(async (id: number, done) => {
   try {
     await prisma.$connect();
