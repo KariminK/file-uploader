@@ -22,26 +22,24 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      await prisma.$connect();
-
-      const user = await prisma.user.findFirst({
-        where: { username: username },
-      });
-      if (!user) return done(null, false, { message: "Invalid username" });
-
-      const passwordsAreEqual = bcrypt.compare(password, user.password);
-      if (!passwordsAreEqual)
-        done(null, false, { message: "Invalid password" });
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    } finally {
-      await prisma.$disconnect();
+  new LocalStrategy(
+    { usernameField: "email", passwordField: "password" },
+    async (email, password, done) => {
+      try {
+        const user = await prisma.user.findFirst({
+          where: { email },
+        });
+        console.log("EMAIL: ", email, "PASSWORD: ", password);
+        if (!user) return done(null, false, { message: "Invalid username" });
+        const passwordsAreEqual = bcrypt.compare(password, user.password);
+        if (!passwordsAreEqual)
+          done(null, false, { message: "Invalid password" });
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
     }
-  })
+  )
 );
 passport.serializeUser((user, done) => {
   done(null, user.id);

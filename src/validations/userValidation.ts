@@ -34,3 +34,23 @@ export const registerUserSchema: Schema = {
     },
   },
 };
+
+export const logInUserSchema: Schema = {
+  email: {
+    notEmpty: {
+      errorMessage: "Email cannot be empty",
+    },
+    isEmail: {
+      errorMessage: "Invalid email",
+    },
+  },
+  password: {
+    notEmpty: {
+      errorMessage: "Password cannot be empty",
+    },
+    isStrongPassword: {
+      errorMessage:
+        "Password must have big letter, small letter, number, symbol and must be at least 8 length",
+    },
+  },
+};

@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { checkSchema } from "express-validator";
-import prisma from "../../db/prisma";
 import { checkValidationResult } from "../../helpers/checkValidationResult";
-import { registerUserSchema } from "../../validations/userValidation";
+import {
+  logInUserSchema,
+  registerUserSchema,
+} from "../../validations/userValidation";
 import { registerUser } from "./auth.service";
 import passport from "passport";
 
@@ -23,9 +25,26 @@ authController.post(
   registerUser,
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/sign-in",
+    failureRedirect: "/user/sign-in",
     failureMessage: "Failed to register",
   })
 );
+
+authController.post(
+  "/log-in",
+  checkSchema(logInUserSchema, ["body"]),
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/user/log-in",
+    failureMessage: "Failed to log-in",
+  })
+);
+
+authController.get("/log-out", (req, res, next) => {
+  req.logOut((err) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
+});
 
 export default authController;

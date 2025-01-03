@@ -4,7 +4,8 @@ import authController from "./auth/auth.controller";
 const indexRouter = Router();
 
 indexRouter.get("/", (req, res) => {
-  res.render("index");
+  if (req.user) res.render("dashboard", { user: req.user });
+  else res.render("index");
 });
 indexRouter.use("/user", authController);
 

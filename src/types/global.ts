@@ -1,9 +1,7 @@
-import { User } from "@prisma/client";
-
-export type UserAccount = User;
+import { user } from "@prisma/client";
 
 declare global {
   namespace Express {
-    interface User extends UserAccount {}
+    interface User extends user {}
   }
 }
