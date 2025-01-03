@@ -8,6 +8,7 @@ import passportLocal from "passport-local";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma";
 import bcrypt from "bcryptjs";
+import "./types/global";
 config();
 
 const LocalStrategy = passportLocal.Strategy;
@@ -71,9 +72,5 @@ app.use(
 app.use(passport.session());
 
 app.use(indexRouter);
-
-app.get("/", (req, res) => {
-  res.render("index");
-});
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

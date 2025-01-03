@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 
-type UserAccount = User;
+export type UserAccount = User;
 
 declare global {
   namespace Express {
