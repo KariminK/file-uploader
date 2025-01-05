@@ -1,5 +1,6 @@
 import { Router } from "express";
 import authController from "./auth.controller";
+import folderController from "./folder.controller";
 
 const indexRouter = Router();
 
@@ -8,5 +9,6 @@ indexRouter.get("/", (req, res) => {
   else res.render("index");
 });
 indexRouter.use("/user", authController);
+indexRouter.use("/folder", folderController);
 
 export default indexRouter;

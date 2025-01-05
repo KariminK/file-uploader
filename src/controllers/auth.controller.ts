@@ -9,7 +9,7 @@ import passport from "passport";
 import prisma from "../db/prisma";
 import bcrypt from "bcryptjs";
 import { user } from "@prisma/client";
-
+import { upload } from "../models/File";
 const authController = Router();
 
 const registerUser: RequestHandler = async (req, res, next) => {
@@ -44,6 +44,8 @@ const registerUser: RequestHandler = async (req, res, next) => {
     return next(error);
   }
 };
+
+authController.use(upload.none());
 
 authController.get("/log-in", (req, res) => {
   res.render("forms/log-in");
