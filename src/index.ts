@@ -13,7 +13,7 @@ config();
 
 const LocalStrategy = passportLocal.Strategy;
 const app = express();
-const port = process.env.PORT ?? 3002;
+const port = process.env.PORT ?? 3000;
 const sessionExpire = 15 * 60 * 1000; // 15 minutes
 
 app.set("view engine", "ejs");
