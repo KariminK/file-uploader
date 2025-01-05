@@ -21,8 +21,34 @@ datasource db {
 }
 
 model user {
-  id       Int    @id @default(autoincrement())
-  username String @unique
-  email    String @unique
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  email    String   @unique
   password String
+  file     file[]
+  fileId   Int?
+  folder   folder[]
+}
+
+model file {
+  id         Int      @id @default(autoincrement())
+  name       String
+  uploadedAt DateTime
+  file_url   String
+  owner      user     @relation(fields: [ownerId], references: [id])
+  ownerId    Int
+  folder     folder?  @relation(fields: [folderId], references: [id])
+  folderId   Int?
+}
+
+model folder {
+  id             Int      @id @default(autoincrement())
+  name           String
+  createdAt      DateTime @default(now())
+  ownerId        Int
+  file           file[]
+  parentFolderId Int?
+  owner          user     @relation(fields: [ownerId], references: [id])
+  parentFolder   folder?  @relation("folderTree", fields: [parentFolderId], references: [id], onDelete: Cascade)
+  childFolders   folder[] @relation("folderTree")
 }
