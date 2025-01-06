@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Create new folder:</h1>
-    <form action="/folder/new" method="post">
+    <form action="/folder/<%= locals.parentName %>/new" method="post">
       <label for="nameInput">Folder name:</label>
       <input type="text" name="name" id="nameInput" />
       <input type="submit" value="Create" />
