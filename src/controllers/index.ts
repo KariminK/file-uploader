@@ -3,6 +3,7 @@ import authController from "./auth.controller";
 import folderController from "./folder.controller";
 import prisma from "../db/prisma";
 import "../types/global";
+import errorMiddleware from "../middlewares/errorMiddleware";
 
 const indexRouter = Router();
 
@@ -17,5 +18,7 @@ indexRouter.get("/", async (req, res) => {
 });
 indexRouter.use("/user", authController);
 indexRouter.use("/folder", folderController);
+
+indexRouter.use(errorMiddleware);
 
 export default indexRouter;
