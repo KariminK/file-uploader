@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload new file</title>
+  </head>
+  <body>
+    <h1>Upload new file:</h1>
+    <form
+      action="/file/<%- locals.parentFolder %>/upload"
+      enctype="multipart/form-data"
+      method="post">
+      <input type="file" name="file" id="fileInput" />
+      <input type="submit" value="Upload" />
+    </form>
+  </body>
+</html>

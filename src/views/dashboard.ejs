@@ -11,16 +11,20 @@
       <p>Welcome <%- user.username %></p>
       <a href="/file/upload">Upload new file</a>
       <a href="/folder/<%- locals.parentName %>/new">Create new folder</a>
+      <a href="/file/<%- locals.parentName %>/upload">Upload new file</a>
       <a href="/user/log-out">Log out</a>
     </header>
     <main>
-      <% if (locals.folders) { %>
       <ul>
-        <% folders.forEach(folder => { %>
+        <!-- folders -->
+        <% if (locals.folders) { folders.forEach(folder => { %>
         <li><a href="/folder/<%- folder.name %> %>"><%- folder.name %></a></li>
-        <% }) %>
+        <% })}%>
+        <!-- files -->
+        <%if (locals.files) { files.forEach(file => { %>
+        <li><a href="<%- file.file_url %>"><%- file.name %></a></li>
+        <% })} %>
       </ul>
-      <% } %>
     </main>
   </body>
 </html>

@@ -11,3 +11,10 @@ export interface newFolderData {
   ownerId: number;
   parentFolderId: null | number;
 }
+
+export interface FileData {
+  name: string;
+  ownerId: number;
+  file_url: string;
+  folderId?: number;
+}

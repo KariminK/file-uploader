@@ -33,7 +33,7 @@ model user {
 model file {
   id         Int      @id @default(autoincrement())
   name       String
-  uploadedAt DateTime
+  uploadedAt DateTime @default(now())
   file_url   String
   owner      user     @relation(fields: [ownerId], references: [id])
   ownerId    Int

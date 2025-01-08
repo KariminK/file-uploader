@@ -2,7 +2,6 @@ import { Router } from "express";
 import { IsAuthorized } from "../middlewares/authMiddleware";
 import prisma from "../db/prisma";
 import "../types/global";
-import { folder } from "@prisma/client";
 import { newFolderData } from "../types/global";
 const folderController = Router();
 
@@ -16,7 +15,7 @@ folderController.get("/:parentName/new", (req, res) => {
   if (!parentFolder)
     return res
       .status(400)
-      .render("erorr", { status: 400, message: "Invalid parent folder name" });
+      .render("error", { status: 400, message: "Invalid parent folder name" });
   return res.render("forms/new-folder", { parentName });
 });
 
@@ -58,7 +57,11 @@ folderController.get("/:name", async (req, res, next) => {
           ownerId: req.user.id,
         },
       },
+      include: {
+        file: true,
+      },
     });
+
     return res.render("dashboard", {
       user: req.user,
       folders,
