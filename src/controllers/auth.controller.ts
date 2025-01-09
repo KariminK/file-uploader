@@ -58,7 +58,7 @@ authController.get("/sign-in", (req, res) => {
 authController.post(
   "/sign-in",
   checkSchema(registerUserSchema, ["body"]),
-  checkValidationResult("sign-in"),
+  checkValidationResult("forms/sign-in"),
   registerUser,
   passport.authenticate("local", {
     successRedirect: "/",
@@ -70,6 +70,7 @@ authController.post(
 authController.post(
   "/log-in",
   checkSchema(logInUserSchema, ["body"]),
+  checkValidationResult("forms/log-in"),
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/user/log-in",
