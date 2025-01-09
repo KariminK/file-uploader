@@ -57,8 +57,11 @@ folderController.get("/:name", async (req, res, next) => {
           ownerId: req.user.id,
         },
       },
-      include: {
-        file: true,
+    });
+    const files = await prisma.file.findMany({
+      where: {
+        folder: { name },
+        ownerId: req.user.id,
       },
     });
 
@@ -66,6 +69,7 @@ folderController.get("/:name", async (req, res, next) => {
       user: req.user,
       folders,
       parentName: name,
+      files: files,
     });
   } catch (error) {
     next(error);

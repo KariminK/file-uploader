@@ -23,6 +23,7 @@ const validateFile: RequestHandler = (req, res, next) => {
 const uploadFile: RequestHandler = async (req, res, next) => {
   try {
     if (!req.user) return res.redirect("/");
+    const { parentFolder } = req.params;
     const file = req.file as Express.Multer.File;
     const uploadInfo = await File.uploadFile(file);
 
@@ -31,6 +32,18 @@ const uploadFile: RequestHandler = async (req, res, next) => {
       file_url: uploadInfo.url,
       ownerId: req.user.id,
     };
+
+    if (parentFolder !== "root") {
+      const folder = await prisma.folder.findFirst({
+        where: { name: parentFolder, ownerId: req.user.id },
+      });
+      if (folder === null)
+        return res
+          .status(400)
+          .render("error", { status: 400, message: "Folder doesn't exisist" });
+      newFileData.folderId = folder.id;
+    }
+
     await prisma.file.create({
       data: newFileData,
     });
