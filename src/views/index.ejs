@@ -4,11 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File uploader</title>
+    <link rel="stylesheet" href="/tailwind.css" />
   </head>
-  <body>
-    <h1>Welcome to our file uploader</h1>
-    <p>To access files you must <a href="/user/log-in">Log in</a></p>
-    <h2>You do not have an account?</h2>
-    <p><a href="/user/sign-in">Create one</a> for free</p>
+  <body class="mx-3 bg-black text-neutral-50">
+    <nav class="grid grid-cols-2 gap-3 py-3">
+      <a
+        class="p-10 text-xl text-center text-black bg-teal-500 rounded-lg shadow-inner bg-gradient-to-tr shadow-teal-200"
+        href="/user/log-in">
+        Log in
+      </a>
+      <a
+        class="p-10 text-xl text-center text-teal-400 rounded-lg bg-neutral-900"
+        href="/user/sign-in">
+        Sign in
+      </a>
+    </nav>
+    <header
+      class="p-3 rounded-lg bg-gradient-to-tr from-neutral-900 via-neutral-800 to-neutral-900">
+      <h1 class="mb-2 text-2xl leading-relaxed">
+        Welcome to our file uploader
+      </h1>
+      <p class="leading-loose text-neutral-300">
+        To access files you must
+        <a class="text-teal-400 underline" href="/user/log-in">Log in</a> <br />
+        You do not have an account?
+        <a class="text-teal-400 underline" href="/user/sign-in">Create one</a>
+        for free
+      </p>
+    </header>
+    <main>
+      <section class="p-3 my-3 rounded-lg bg-neutral-900">
+        <h2 class="text-xl leading-loose">Benefits of our storage:</h2>
+        <ul class="leading-relaxed text-neutral-300">
+          <li class="py-3 border-b border-b-teal-400">
+            <h3 class="text-lg text-teal-600">Reliable</h3>
+            <p>
+              We store your files on safe cloud storage named
+              <a href="https://cloudinary.com/">Cloudinary</a>
+            </p>
+          </li>
+          <li class="py-3 border-b border-b-teal-400">
+            <h3 class="text-lg text-teal-600">Safe</h3>
+            <p>
+              Your password is ciphered and stored only in our database. Nobody
+              can see your password. Even us
+            </p>
+          </li>
+          <li class="py-3 border-b-teal-400">
+            <h3 class="text-lg text-teal-600">Free</h3>
+            <p>
+              Our storage is (and always will be) free. That means you can store
+              your files as long as you want
+            </p>
+          </li>
+        </ul>
+      </section>
+      <section class="p-3 my-3 bg-red-500 rounded-lg">
+        <h2 class="text-xl leading-loose">Disclaimer</h2>
+        <p>
+          This project was made for educational purposes. In your place. I
+          wouldn't put there any sensible data, beacuse you don't know day nor
+          hour when this project will stop working
+        </p>
+      </section>
+    </main>
   </body>
 </html>
