@@ -6,52 +6,69 @@
     <title>File uploader</title>
     <link rel="stylesheet" href="/tailwind.css" />
   </head>
-  <body class="mx-3 bg-black text-neutral-50">
-    <nav class="grid grid-cols-2 gap-3 py-3">
-      <a
-        class="p-10 text-xl text-center text-black bg-teal-500 rounded-lg shadow-inner bg-gradient-to-tr shadow-teal-200"
-        href="/user/log-in">
-        Log in
-      </a>
-      <a
-        class="p-10 text-xl text-center text-teal-400 rounded-lg bg-neutral-900"
-        href="/user/sign-in">
-        Sign in
-      </a>
+  <body class="bg-neutral-950 text-neutral-50">
+    <nav class="flex items-center p-5">
+      <span
+        class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-teal-400">
+        Reach
+      </span>
+      <ul class="flex gap-5 ml-auto">
+        <li>
+          <a href="/user/log-in">Log in</a>
+        </li>
+        <li>
+          <a href="/user/sign-in">Sign in</a>
+        </li>
+      </ul>
     </nav>
-    <header
-      class="p-3 rounded-lg bg-gradient-to-tr from-neutral-900 via-neutral-800 to-neutral-900">
-      <h1 class="mb-2 text-2xl leading-relaxed">
-        Welcome to our file uploader
+    <header class="p-5 py-20 rounded-lg">
+      <h1 class="text-4xl font-bold leading-relaxed">
+        Your Files, Always Within
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-teal-400">
+          Reach
+        </span>
       </h1>
-      <p class="leading-loose text-neutral-300">
-        To access files you must
-        <a class="text-teal-400 underline" href="/user/log-in">Log in</a> <br />
-        You do not have an account?
-        <a class="text-teal-400 underline" href="/user/sign-in">Create one</a>
-        for free
+      <p class="my-4 leading-loose text-neutral-200">
+        Stay connected to what matters most. Whether at home, in the office, or
+        on the go, our cloud storage ensures your files are just a click away.
       </p>
+      <a href="/user/sign-in">
+        <button
+          class="px-5 py-3 my-3 rounded-full bg-gradient-to-tr from-fuchsia-500 to-teal-500">
+          Get started
+          <i class="ml-2 fa-solid fa-up-right-from-square"></i>
+        </button>
+      </a>
+      <section class="my-5">
+        <h2 class="text-sm leading-loose text-red-600">Disclaimer</h2>
+        <p class="text-xs leading-loose text-neutral-500">
+          This project was made for educational purposes. In your place. I
+          wouldn't put there any sensible data, beacuse you don't know day nor
+          hour when this project will stop working
+        </p>
+      </section>
     </header>
-    <main>
-      <section class="p-3 my-3 rounded-lg bg-neutral-900">
-        <h2 class="text-xl leading-loose">Benefits of our storage:</h2>
+    <main class="">
+      <section class="p-5 bg-transparent">
+        <h2 class="text-2xl leading-loose">Benefits of our storage:</h2>
         <ul class="leading-relaxed text-neutral-300">
-          <li class="py-3 border-b border-b-teal-400">
-            <h3 class="text-lg text-teal-600">Reliable</h3>
+          <li class="py-5">
+            <h3 class="text-lg leading-loose text-fuchsia-400">Reliable</h3>
             <p>
               We store your files on safe cloud storage named
               <a href="https://cloudinary.com/">Cloudinary</a>
             </p>
           </li>
-          <li class="py-3 border-b border-b-teal-400">
-            <h3 class="text-lg text-teal-600">Safe</h3>
+          <li class="py-5">
+            <h3 class="text-lg leading-loose text-fuchsia-400">Safe</h3>
             <p>
               Your password is ciphered and stored only in our database. Nobody
               can see your password. Even us
             </p>
           </li>
-          <li class="py-3 border-b-teal-400">
-            <h3 class="text-lg text-teal-600">Free</h3>
+          <li class="py-5">
+            <h3 class="text-lg leading-loose text-fuchsia-400">Free</h3>
             <p>
               Our storage is (and always will be) free. That means you can store
               your files as long as you want
@@ -59,14 +76,9 @@
           </li>
         </ul>
       </section>
-      <section class="p-3 my-3 bg-red-500 rounded-lg">
-        <h2 class="text-xl leading-loose">Disclaimer</h2>
-        <p>
-          This project was made for educational purposes. In your place. I
-          wouldn't put there any sensible data, beacuse you don't know day nor
-          hour when this project will stop working
-        </p>
-      </section>
     </main>
+    <script
+      src="https://kit.fontawesome.com/2e000cecf5.js"
+      crossorigin="anonymous"></script>
   </body>
 </html>

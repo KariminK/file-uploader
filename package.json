@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "npx ts-node-dev src/index.ts"
+    "dev": "npx ts-node-dev src/index.ts",
+    "tailwind": "npx tailwindcss -i ./src/public/index.css -o ./src/public/tailwind.css --watch"
   },
   "keywords": [],
   "author": "",
