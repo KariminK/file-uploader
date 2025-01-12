@@ -7,25 +7,16 @@
     <link rel="stylesheet" href="/tailwind.css" />
   </head>
   <body class="bg-neutral-950 text-neutral-50">
-    <nav class="flex items-center p-5">
-      <span
-        class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-teal-400">
-        Reach
-      </span>
-      <ul class="flex gap-5 ml-auto">
-        <li>
-          <a href="/user/log-in">Log in</a>
-        </li>
-        <li>
-          <a href="/user/sign-in">Sign in</a>
-        </li>
-      </ul>
-    </nav>
+    <%- include("partials/navbar", {links: [
+      {href: "/user/log-in", text: "Log in"},
+      {href: "/user/Sign-in", text: "Sign in"}
+    ]}) %>
     <header class="p-5 py-20 rounded-lg">
       <h1 class="text-4xl font-bold leading-relaxed">
         Your Files, Always Within
         <span
-          class="text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-teal-400">
+          class="text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-indigo-400"
+        >
           Reach
         </span>
       </h1>
@@ -35,7 +26,8 @@
       </p>
       <a href="/user/sign-in">
         <button
-          class="px-5 py-3 my-3 rounded-full bg-gradient-to-tr from-fuchsia-500 to-teal-500">
+          class="px-5 py-3 my-3 rounded-full bg-gradient-to-tr from-fuchsia-500 to-indigo-400"
+        >
           Get started
           <i class="ml-2 fa-solid fa-up-right-from-square"></i>
         </button>
@@ -79,6 +71,7 @@
     </main>
     <script
       src="https://kit.fontawesome.com/2e000cecf5.js"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

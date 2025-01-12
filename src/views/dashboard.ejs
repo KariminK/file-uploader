@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | File uploader</title>
+    <link rel="stylesheet" href="/tailwind.css">
   </head>
-  <body>
+  <body class="bg-neutral-950 text-neutral-50">
+    
     <header>
       <h1>File uploader</h1>
       <p>Welcome <%- user.username %></p>
-      <a href="/file/upload">Upload new file</a>
       <a href="/folder/<%- locals.parentName %>/new">Create new folder</a>
       <a href="/file/<%- locals.parentName %>/upload">Upload new file</a>
       <a href="/user/log-out">Log out</a>
