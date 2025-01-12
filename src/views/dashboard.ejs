@@ -7,25 +7,53 @@
     <link rel="stylesheet" href="/tailwind.css">
   </head>
   <body class="bg-neutral-950 text-neutral-50">
-    
-    <header>
-      <h1>File uploader</h1>
-      <p>Welcome <%- user.username %></p>
-      <a href="/folder/<%- locals.parentName %>/new">Create new folder</a>
-      <a href="/file/<%- locals.parentName %>/upload">Upload new file</a>
-      <a href="/user/log-out">Log out</a>
+    <%- include("partials/navbar", {links: [
+      {href: "/user/log-out", text: "Log out"}
+    ]}) %>
+    <header class="mt-32">      
+      <ul class="p-3">
+        <li class="flex items-center gap-6 p-4 my-3 border border-indigo-400 rounded bg-neutral-800">
+          <div class="w-8 text-center">
+            <i class="text-3xl text-indigo-400 fa-regular fa-folder"></i>
+          </div>
+          <a class="font-bold" href="/folder/<%- locals.parentName %>/new">Create new folder</a>
+        </li>
+        <li class="flex items-center gap-6 p-4 my-3 border rounded border-fuchsia-400 bg-neutral-800">
+          <div class="w-8 text-center">
+            <i class="text-3xl fa-regular fa-file text-fuchsia-400"></i>
+          </div>
+          <a class="font-bold" href="/file/<%- locals.parentName %>/upload">Upload new file</a>
+        </li>
+      </ul>
     </header>
     <main>
-      <ul>
+      <ul class="p-3">
         <!-- folders -->
         <% if (locals.folders) { folders.forEach(folder => { %>
-        <li><a href="/folder/<%- folder.name %> %>"><%- folder.name %></a></li>
+        <li class="flex items-center gap-6 p-4 my-5 rounded bg-neutral-800">
+          <div class="w-8 text-center">
+            <i class="text-3xl text-indigo-400 fa-regular fa-folder"></i>
+          </div>
+          <a class="text-neutral-200" href="/folder/<%- folder.name %> %>"><%- folder.name %></a>
+          <i class="ml-auto text-3xl text-indigo-300 fa-solid fa-ellipsis-vertical"></i>
+        </li>
         <% })}%>
         <!-- files -->
         <%if (locals.files) { files.forEach(file => { %>
-        <li><a href="<%- file.file_url %>"><%- file.name %></a></li>
+        <li class="flex items-center gap-6 p-4 my-5 rounded bg-neutral-800">
+          <div class="w-8 text-center">
+            <i class="text-3xl fa-regular fa-file text-fuchsia-400"></i>
+          </div>
+          <a class="text-neutral-200" href="<%- file.file_url %>"><%- file.name %></a>
+          <i class="ml-auto text-3xl text-fuchsia-300 fa-solid fa-ellipsis-vertical"></i>
+        </li>
         <% })} %>
       </ul>
     </main>
+    <%- include("partials/footer") %>
+    <script
+      src="https://kit.fontawesome.com/2e000cecf5.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
