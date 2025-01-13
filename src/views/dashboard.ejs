@@ -6,12 +6,12 @@
     <title>Dashboard | File uploader</title>
     <link rel="stylesheet" href="/tailwind.css">
   </head>
-  <body class="bg-neutral-950 text-neutral-50">
+  <body class="max-w-4xl mx-auto bg-neutral-950 text-neutral-50">
     <%- include("partials/navbar", {links: [
       {href: "/user/log-out", text: "Log out"}
     ]}) %>
     <header class="mt-32">      
-      <ul class="p-3">
+      <ul class="p-3 md:grid md:grid-cols-2 md:gap-5">
         <li class="flex items-center gap-6 p-4 my-3 border border-indigo-400 rounded bg-neutral-800">
           <div class="w-8 text-center">
             <i class="text-3xl text-indigo-400 fa-regular fa-folder"></i>
@@ -27,10 +27,10 @@
       </ul>
     </header>
     <main>
-      <ul class="p-3">
+      <ul class="p-3 md:grid md:grid-cols-2 md:gap-x-5 md:gap-y-7 md:mt-5">
         <!-- folders -->
         <% if (locals.folders) { folders.forEach(folder => { %>
-        <li class="flex items-center gap-6 p-4 my-5 rounded bg-neutral-800">
+        <li class="flex items-center gap-6 p-4 my-5 rounded md:my-0 bg-neutral-800">
           <div class="w-8 text-center">
             <i class="text-3xl text-indigo-400 fa-regular fa-folder"></i>
           </div>
@@ -40,7 +40,7 @@
         <% })}%>
         <!-- files -->
         <%if (locals.files) { files.forEach(file => { %>
-        <li class="flex items-center gap-6 p-4 my-5 rounded bg-neutral-800">
+        <li class="flex items-center gap-6 p-4 my-5 rounded md:my-0 bg-neutral-800">
           <div class="w-8 text-center">
             <i class="text-3xl fa-regular fa-file text-fuchsia-400"></i>
           </div>
