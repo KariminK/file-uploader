@@ -6,32 +6,39 @@
     <title>File uploader</title>
     <link rel="stylesheet" href="/tailwind.css" />
   </head>
-  <body class="bg-neutral-950 text-neutral-50">
+  <body class="bg-neutral-950 text-neutral-50 lg:max-w-5xl lg:mx-auto">
     <%- include("partials/navbar", {links: [
       {href: "/user/log-in", text: "Log in"},
       {href: "/user/Sign-in", text: "Sign in"}
     ]}) %>
     <header class="p-5 py-20 rounded-lg">
-      <h1 class="text-4xl font-bold leading-relaxed">
-        Your Files, Always Within
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-indigo-400"
-        >
-          Reach
-        </span>
-      </h1>
-      <p class="my-4 leading-loose text-neutral-200">
-        Stay connected to what matters most. Whether at home, in the office, or
-        on the go, our cloud storage ensures your files are just a click away.
-      </p>
-      <a href="/user/sign-in">
-        <button
-          class="px-5 py-3 my-3 rounded-full bg-gradient-to-tr from-fuchsia-500 to-indigo-400"
-        >
-          Get started
-          <i class="ml-2 fa-solid fa-up-right-from-square"></i>
-        </button>
-      </a>
+      <section class="grid lg:grid-cols-2 lg:gap-20 lg:place-items-center">
+        <div>
+          <h1 class="text-4xl font-bold leading-relaxed">
+            Your Files, Always Within
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-tr from-fuchsia-400 to-indigo-400"
+            >
+              Reach
+            </span>
+          </h1>
+          <p class="my-4 leading-loose lg:my-7 text-neutral-200">
+            Stay connected to what matters most. Whether at home, in the office, or
+            on the go, our cloud storage ensures your files are just a click away.
+          </p>
+          <a href="/user/sign-in">
+            <button
+              class="px-5 py-3 my-3 rounded-full lg:my-7 bg-gradient-to-tr from-fuchsia-500 to-indigo-400"
+            >
+              Get started
+              <i class="ml-2 fa-solid fa-up-right-from-square"></i>
+            </button>
+          </a>
+        </div>
+        <div class="hidden h-full lg:block">
+          <img class="h-full lg:rounded-3xl" src="/img/cosmos.jpg" alt="">
+        </div>
+      </section>
       <section class="my-5">
         <h2 class="text-sm leading-loose text-red-600">Disclaimer</h2>
         <p class="text-xs leading-loose text-neutral-500">
@@ -43,27 +50,27 @@
     </header>
     <main class="">
       <section class="p-5 bg-transparent">
-        <h2 class="text-2xl leading-loose">Benefits of our storage:</h2>
-        <ul class="leading-relaxed text-neutral-300">
+        <h2 class="text-2xl font-thin leading-loose text-center">Why choose Reach?</h2>
+        <ul class="leading-relaxed text-neutral-300 lg:grid lg:grid-cols-3 lg:text-center lg:gap-10 lg:mt-10">
           <li class="py-5">
-            <h3 class="text-lg leading-loose text-fuchsia-400">Reliable</h3>
-            <p>
-              We store your files on safe cloud storage named
-              <a href="https://cloudinary.com/">Cloudinary</a>
+            <h3 class="text-2xl leading-relaxed text-indigo-400">Effortless Accessibility</h3>
+            <p class="leading-loose">
+              With Reach, your files are always just a click away. 
+              Access your data anytime, anywhere, on any device.
             </p>
           </li>
           <li class="py-5">
-            <h3 class="text-lg leading-loose text-fuchsia-400">Safe</h3>
-            <p>
-              Your password is ciphered and stored only in our database. Nobody
-              can see your password. Even us
+            <h3 class="text-2xl leading-relaxed text-indigo-400">Free. Forever</h3>
+            <p class="leading-loose">
+              Our service is (and always will be) free. That means 
+              you can store your files as long as you want
             </p>
           </li>
           <li class="py-5">
-            <h3 class="text-lg leading-loose text-fuchsia-400">Free</h3>
-            <p>
-              Our storage is (and always will be) free. That means you can store
-              your files as long as you want
+            <h3 class="text-2xl leading-relaxed text-indigo-400">Unmatched Security</h3>
+            <p class="leading-loose">
+              Your data’s safety is our top priority. With advanced 
+              encryption your files are protected 24/7.
             </p>
           </li>
         </ul>
