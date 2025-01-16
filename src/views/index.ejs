@@ -28,10 +28,10 @@
           </p>
           <a href="/user/sign-in">
             <button
-              class="px-5 py-3 rounded-full my-7 bg-gradient-to-tr from-fuchsia-500 to-indigo-400"
+              class="flex items-center px-5 py-3 rounded-full my-7 bg-gradient-to-tr from-fuchsia-500 to-indigo-400"
             >
               Get started
-              <i class="ml-2 fa-solid fa-up-right-from-square"></i>
+              <img src="/icons/arrow-up-right.svg" alt="icon arrow up right" class="ml-2">
             </button>
           </a>
         </div>
@@ -53,6 +53,7 @@
         <h2 class="text-2xl font-thin leading-loose text-center">Why choose Reach?</h2>
         <ul class="grid gap-10 mt-10 leading-relaxed text-center text-neutral-300 lg:grid-cols-3">
           <li class="py-5">
+            <img src="/icons/download.svg" class="w-12 mx-auto" alt="download icon">
             <h3 class="text-2xl leading-relaxed text-indigo-400">Effortless Accessibility</h3>
             <p class="leading-loose">
               With Reach, your files are always just a click away. 
@@ -60,6 +61,7 @@
             </p>
           </li>
           <li class="py-5">
+            <img src="/icons/users-profiles.svg" class="w-12 mx-auto stroke-indigo-400" alt="users profiles icon">
             <h3 class="text-2xl leading-relaxed text-indigo-400">Free. Forever</h3>
             <p class="leading-loose">
               Our service is (and always will be) free. That means 
@@ -67,6 +69,7 @@
             </p>
           </li>
           <li class="py-5">
+            <img src="/icons/file-lock.svg" class="w-12 mx-auto stroke-indigo-400" alt="file lock icon">
             <h3 class="text-2xl leading-relaxed text-indigo-400">Unmatched Security</h3>
             <p class="leading-loose">
               Your data’s safety is our top priority. With advanced 
@@ -76,9 +79,6 @@
         </ul>
       </section>
     </main>
-    <script
-      src="https://kit.fontawesome.com/2e000cecf5.js"
-      crossorigin="anonymous"
-    ></script>
+    <%- include("partials/footer") %>
   </body>
 </html>
