@@ -4,27 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign in</title>
+    <link rel="stylesheet" href="/tailwind.css" />
   </head>
-  <body>
-    <h1>Sign in:</h1>
-    <form action="/user/sign-in" method="post">
-      <label for="username-input"> Username: </label>
-      <input type="text" name="username" id="username-input" />
-      <br />
-      <label for="email-input">Email:</label>
-      <input type="email" name="email" id="email-input" />
-      <br />
-      <label for="password-input">Password:</label>
-      <input type="password" name="password" id="password-input" />
-      <br />
-      <label for="confirm-password-input">Confirm password:</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        id="confirm-password-input" />
-      <br />
-      <input type="submit" value="Sign in" />
-      <a href="/">Cancel</a>
+  <body class="max-w-4xl mx-auto bg-neutral-950 text-neutral-50">
+    <%- include("../partials/navbar", {links: [{href: "/", text:"Home"}]}) %>
+    <form action="/user/sign-in" class="px-3 mt-20" method="post">
+      <h1 class="mb-5 text-2xl font-bold">Create Account</h1>
+      <label class="block my-10" for="username-input">
+        <p>Username:</p>
+        <input placeholder="Type here..." class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400" type="text" name="username" id="username-input" />
+      </label>
+      <label class="block my-10" for="email-input">
+        <p>Email:</p>
+        <input placeholder="Type here..." class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400" type="email" name="email" id="email-input" />
+      </label>
+      <label class="block my-10" for="password-input">
+        <p>Password:</p>
+        <input placeholder="Type here..." class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400" type="password" name="password" id="password-input" />
+      </label>
+      <label class="block my-10" for="confirm-password-input">
+        <p>Confirm password:</p>
+        <input
+          class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400" type="text" name="username" id="username-input"
+          placeholder="Type here..."
+          type="password"
+          name="confirmPassword"
+          id="confirm-password-input" />   
+      </label>     
+      <div class="flex justify-around">
+        <input class="px-6 py-4 text-lg text-center rounded-full cursor-pointer bg-gradient-to-r from-indigo-500 to-fuchsia-500" type="submit" value="Create Account" />
+        <a class="px-6 py-4 text-lg text-center hover:border" href="/">Cancel</a>
+      </div>
     </form>
     <%- include("../partials/formErrors") %>
   </body>
