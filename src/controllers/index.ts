@@ -2,7 +2,7 @@ import { Router } from "express";
 import authController from "./auth.controller";
 import folderController from "./folder.controller";
 import prisma from "../db/prisma";
-import "../types/global";
+import "../types";
 import errorMiddleware from "../middlewares/errorMiddleware";
 import fileController from "./file.controller";
 

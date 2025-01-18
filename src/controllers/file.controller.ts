@@ -2,7 +2,8 @@ import { RequestHandler, Router } from "express";
 import { IsAuthorized } from "../middlewares/authMiddleware";
 import File, { upload } from "../models/File";
 import prisma from "../db/prisma";
-import { FileData } from "../types/global";
+import { FileData } from "../types";
+import { validateFile } from "../validations/fileValidation";
 
 const fileController = Router();
 
@@ -13,13 +14,6 @@ fileController.get("/:parentFolder/upload", (req, res) => {
   res.render("forms/new-file", { parentFolder });
 });
 
-const validateFile: RequestHandler = (req, res, next) => {
-  if (!req.file)
-    return res.render("new-file", {
-      error: { msg: "You must put one file in field" },
-    });
-  next();
-};
 const uploadFile: RequestHandler = async (req, res, next) => {
   try {
     if (!req.user) return res.redirect("/");

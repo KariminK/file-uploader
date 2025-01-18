@@ -8,7 +8,7 @@ import passportLocal from "passport-local";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma";
 import bcrypt from "bcryptjs";
-import "./types/global";
+import "./types";
 config();
 
 const LocalStrategy = passportLocal.Strategy;

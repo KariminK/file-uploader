@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>Upload new file:</h1>
+    <%- include("../partials/formErrors") %>
     <form
       action="/file/<%- locals.parentFolder %>/upload"
       enctype="multipart/form-data"
@@ -14,6 +15,5 @@
       <input type="file" name="file" id="fileInput" />
       <input type="submit" value="Upload" />
     </form>
-    <%- include("../partials/formErrors") %>
   </body>
 </html>

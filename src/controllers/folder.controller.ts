@@ -1,10 +1,9 @@
 import { Router } from "express";
 import { IsAuthorized } from "../middlewares/authMiddleware";
 import prisma from "../db/prisma";
-import "../types/global";
-import { newFolderData } from "../types/global";
+import "../types";
+import { newFolderData } from "../types";
 import { checkValidationResult } from "../helpers/checkValidationResult";
-import { body } from "express-validator";
 import { validateFolder } from "../validations/folderValidation";
 const folderController = Router();
 
