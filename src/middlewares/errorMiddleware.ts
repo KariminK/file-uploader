@@ -2,6 +2,7 @@ import { ErrorRequestHandler } from "express";
 import { MulterError } from "multer";
 
 const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
+  console.log(err);
   let errMessage = "Internal server error";
   if (err.message) {
     errMessage = `Internal server error: ${err.message}`;

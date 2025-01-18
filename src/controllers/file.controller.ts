@@ -25,6 +25,7 @@ const uploadFile: RequestHandler = async (req, res, next) => {
       name: file.originalname,
       file_url: uploadInfo.url,
       ownerId: req.user.id,
+      cloud_id: uploadInfo.public_id,
     };
 
     if (parentFolder !== "root") {
@@ -53,5 +54,41 @@ fileController.post(
   validateFile,
   uploadFile
 );
+
+fileController.get("/:cloud_id/delete", async (req, res) => {
+  const { cloud_id } = req.params;
+  const file = await prisma.file.findFirst({
+    where: { cloud_id, ownerId: req.user?.id },
+  });
+  if (!file) return res.redirect("/");
+  res.render("forms/delete-file", { cloud_id, name: file?.name });
+});
+
+fileController.post("/:cloud_id/delete", async (req, res, next) => {
+  try {
+    const { fileName } = req.body;
+    const { cloud_id } = req.params;
+
+    const file = await prisma.file.findFirst({
+      where: { cloud_id, ownerId: req.user?.id },
+    });
+    if (!file)
+      return res.status(400).render("forms/delete-file", {
+        errors: [{ msg: "This file doesn't exist" }],
+      });
+
+    if (fileName !== file.name)
+      return res.render("forms/delete-file", {
+        errors: [{ msg: "Incorrect name" }],
+        cloud_id,
+        name: file.name,
+      });
+    await File.deleteFile(cloud_id);
+    await prisma.file.delete({ where: { id: file.id } });
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default fileController;

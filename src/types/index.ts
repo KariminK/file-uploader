@@ -17,4 +17,5 @@ export interface FileData {
   ownerId: number;
   file_url: string;
   folderId?: number;
+  cloud_id: string;
 }

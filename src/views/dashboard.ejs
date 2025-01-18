@@ -46,6 +46,9 @@
           </div>
           <a class="text-neutral-200" href="<%- file.file_url %>"><%- file.name %></a>
           <i class="ml-auto text-3xl text-fuchsia-300 fa-solid fa-ellipsis-vertical"></i>
+          <div class="bg-neutral-700">
+            <a class="text-red-400" href="/file/<%-file.cloud_id%>/delete">Delete file</a>
+          </div>
         </li>
         <% })} %>
       </ul>

@@ -18,6 +18,10 @@ class FilesModel {
     });
     return uploadInfo;
   }
+  async deleteFile(public_id: string) {
+    const result = await cloudinary.api.delete_resources([public_id]);
+    return result;
+  }
 }
 
 const storage = multer.memoryStorage();
