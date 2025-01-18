@@ -3,6 +3,9 @@ import { IsAuthorized } from "../middlewares/authMiddleware";
 import prisma from "../db/prisma";
 import "../types/global";
 import { newFolderData } from "../types/global";
+import { checkValidationResult } from "../helpers/checkValidationResult";
+import { body } from "express-validator";
+import { validateFolder } from "../validations/folderValidation";
 const folderController = Router();
 
 folderController.use(IsAuthorized);
@@ -21,30 +24,35 @@ folderController.get("/:parentName/new", (req, res) => {
 
 // TODO: ADD VALIDATION TO NEW FOLDER
 
-folderController.post("/:parentName/new", async (req, res, next) => {
-  try {
-    const { name } = req.body;
-    const { parentName } = req.params;
-    if (!name || !req.user) return res.status(400).redirect("/");
+folderController.post(
+  "/:parentName/new",
+  validateFolder,
+  checkValidationResult("forms/new-folder"),
+  async (req, res, next) => {
+    try {
+      const { name } = req.body;
+      const { parentName } = req.params;
+      if (!name || !req.user) return res.status(400).redirect("/");
 
-    const folderData: newFolderData = {
-      name: name,
-      ownerId: req.user.id,
-      parentFolderId: null,
-    };
-    if (parentName !== "root") {
-      const parentFolder = await prisma.folder.findFirst({
-        where: { name: parentName, ownerId: req.user.id },
-      });
-      if (!parentFolder) return res.status(400).redirect("/");
-      folderData.parentFolderId = parentFolder.id;
+      const folderData: newFolderData = {
+        name: name,
+        ownerId: req.user.id,
+        parentFolderId: null,
+      };
+      if (parentName !== "root") {
+        const parentFolder = await prisma.folder.findFirst({
+          where: { name: parentName, ownerId: req.user.id },
+        });
+        if (!parentFolder) return res.status(400).redirect("/");
+        folderData.parentFolderId = parentFolder.id;
+      }
+      await prisma.folder.create({ data: folderData });
+      res.redirect("/");
+    } catch (error) {
+      next(error);
     }
-    await prisma.folder.create({ data: folderData });
-    res.redirect("/");
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 folderController.get("/:name", async (req, res, next) => {
   try {
