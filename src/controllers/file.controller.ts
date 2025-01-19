@@ -35,7 +35,7 @@ const uploadFile: RequestHandler = async (req, res, next) => {
       if (folder === null)
         return res
           .status(400)
-          .render("error", { status: 400, message: "Folder doesn't exisist" });
+          .render("error", { status: 400, message: "Folder doesn't exist" });
       newFileData.folderId = folder.id;
     }
 
@@ -57,7 +57,7 @@ fileController.post(
 
 fileController.get("/:cloud_id/delete", async (req, res) => {
   const { cloud_id } = req.params;
-  const file = await prisma.file.findFirst({
+  const file = await prisma.file.findUnique({
     where: { cloud_id, ownerId: req.user?.id },
   });
   if (!file) return res.redirect("/");
@@ -66,10 +66,10 @@ fileController.get("/:cloud_id/delete", async (req, res) => {
 
 fileController.post("/:cloud_id/delete", async (req, res, next) => {
   try {
-    const { fileName } = req.body;
+    const { filename } = req.body;
     const { cloud_id } = req.params;
 
-    const file = await prisma.file.findFirst({
+    const file = await prisma.file.findUnique({
       where: { cloud_id, ownerId: req.user?.id },
     });
     if (!file)
@@ -77,14 +77,14 @@ fileController.post("/:cloud_id/delete", async (req, res, next) => {
         errors: [{ msg: "This file doesn't exist" }],
       });
 
-    if (fileName !== file.name)
+    if (filename !== file.name)
       return res.render("forms/delete-file", {
         errors: [{ msg: "Incorrect name" }],
         cloud_id,
         name: file.name,
       });
     await File.deleteFile(cloud_id);
-    await prisma.file.delete({ where: { id: file.id } });
+    await prisma.file.delete({ where: { cloud_id: file.cloud_id } });
     res.redirect("/");
   } catch (error) {
     next(error);

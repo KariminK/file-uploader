@@ -31,8 +31,7 @@ model user {
 }
 
 model file {
-  id         Int      @id @default(autoincrement())
-  cloud_id   String   @default("")
+  cloud_id   String   @id
   name       String
   uploadedAt DateTime @default(now())
   file_url   String

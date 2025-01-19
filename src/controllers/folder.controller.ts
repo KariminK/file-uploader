@@ -83,4 +83,20 @@ folderController.get("/:name", async (req, res, next) => {
   }
 });
 
+folderController.get("/:name/delete", async (req, res, next) => {
+  try {
+    if (!req.user) return res.redirect("/");
+    const { name } = req.params;
+    const folder = await prisma.folder.findFirst({
+      where: { name, ownerId: req.user.id },
+    });
+    if (!folder) return res.redirect("/");
+
+    await prisma.folder.delete({ where: { id: folder.id } });
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default folderController;
