@@ -37,7 +37,7 @@ model file {
   file_url   String
   owner      user     @relation(fields: [ownerId], references: [id])
   ownerId    Int
-  folder     folder?  @relation(fields: [folderId], references: [id])
+  folder     folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId   Int?
 }
 
