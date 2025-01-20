@@ -15,6 +15,7 @@ class FilesModel {
     const encodedFile = "data:" + file.mimetype + ";base64," + base64;
     const uploadInfo = await cloudinary.uploader.upload(encodedFile, {
       resource_type: "auto",
+      use_filename: true,
     });
     return uploadInfo;
   }
