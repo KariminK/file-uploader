@@ -31,28 +31,42 @@
       <ul class="p-3 md:grid md:grid-cols-2 md:gap-x-5 md:gap-y-7 md:mt-5">
         <!-- folders -->
         <% if (locals.folders) { folders.forEach(folder => { %>
-          <li class="flex items-center gap-6 p-4 my-5 rounded md:my-0 bg-neutral-800">
+          <li class="relative flex items-center gap-6 p-4 my-5 rounded md:my-0 bg-neutral-800">
             <div class="w-8 text-center">
               <img src="/icons/folder.svg" class="w-full" alt="folder">
             </div>
             <a class="text-neutral-200" href="/folder/<%- folder.name %> %>"><%- folder.name %></a>
-            <i class="ml-auto text-3xl text-indigo-300 fa-solid fa-ellipsis-vertical"></i>
-            <div class="">
-              <a class="text-red-400" href="/folder/<%-folder.name%>/delete">Delete folder</a>
-            </div>
+            <button class="ml-auto more-btn">
+              <img src="/icons/more.svg" class="w-3 cursor-pointer" alt="">
+            </button>
+            <ul class="absolute right-0 z-10 hidden rounded-b top-14 bg-neutral-800">
+              <li class="p-3">
+                <a href="/folder/<%- folder.name %>/edit">Edit</a>
+              </li>
+              <li class="p-3">
+                <a class="text-red-400" href="/folder/<%-folder.name%>/delete">Delete folder</a>
+              </li>
+            </ul>
           </li>
         <% })}%>
         <!-- files -->
         <%if (locals.files) { files.forEach(file => { %>
-            <li class="flex items-center gap-6 p-4 my-5 rounded md:my-0 bg-neutral-800">
+            <li class="relative flex items-center gap-6 p-4 my-5 rounded md:my-0 bg-neutral-800">
               <div class="w-8 text-center">
                 <img class="w-full" src="/icons/file.svg" alt="file">
               </div>
               <a class="text-neutral-200" href="<%- file.file_url %>"><%- file.name %></a>
-              <i class="ml-auto text-3xl text-fuchsia-300 fa-solid fa-ellipsis-vertical"></i>
-              <div class="">
-                <a class="text-red-400" href="/file/<%-file.cloud_id%>/delete">Delete file</a>
-              </div>
+              <button class="more-btn">
+                <img src="/icons/more.svg" class="w-3 ml-auto cursor-pointer" alt="">
+              </button>
+              <ul class="absolute right-0 z-10 rounded-b top-14 bg-neutral-800">
+                <li class="p-3">
+                  <a href="/file/<%- file.cloud_id %>/details">View details</a>
+                </li>
+                <li class="p-3">
+                  <a class="text-red-400" href="/file/<%-file.cloud_id%>/delete">Delete file</a>
+                </li>
+              </ul>
             </li>
         <% })} %>
         <% if (locals.parentName !== "root") { %>
@@ -66,5 +80,6 @@
       </ul>
     </main>
     <%- include("partials/footer") %>
+    <script src="/js/script.js"></script>
   </body>
 </html>

@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
-
-const bytesToMegabytes = (bytes: number) => bytes / 1000000;
+import bytesToMegabytes from "../helpers/bytesToMegabytes";
 
 export const validateFile: RequestHandler = (req, res, next) => {
   const { parentFolder } = req.params;

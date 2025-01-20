@@ -34,6 +34,7 @@ model file {
   cloud_id   String   @id
   name       String
   uploadedAt DateTime @default(now())
+  size       Float
   file_url   String
   owner      user     @relation(fields: [ownerId], references: [id])
   ownerId    Int

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit folder</title>
+  </head>
+  <body>
+    <h1>Edit folder name:</h1>
+    <%- include("../partials/formErrors") %>
+    <form action="/folder/<%- locals.name %>/edit" method="post">
+      <label for="newNameInput">New Name:</label>
+      <input type="text" name="newName" id="newNameInput" />
+      <input type="submit" value="Change" />
+    </form>
+  </body>
+</html>

@@ -4,6 +4,7 @@ import File, { upload } from "../models/File";
 import prisma from "../db/prisma";
 import { FileData } from "../types";
 import { validateFile } from "../validations/fileValidation";
+import bytesToMegabytes from "../helpers/bytesToMegabytes";
 
 const fileController = Router();
 
@@ -26,6 +27,7 @@ const uploadFile: RequestHandler = async (req, res, next) => {
       file_url: uploadInfo.url,
       ownerId: req.user.id,
       cloud_id: uploadInfo.public_id,
+      size: bytesToMegabytes(file.size),
     };
 
     if (parentFolder !== "root") {

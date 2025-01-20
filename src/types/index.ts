@@ -18,4 +18,5 @@ export interface FileData {
   file_url: string;
   folderId?: number;
   cloud_id: string;
+  size: number;
 }

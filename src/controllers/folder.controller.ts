@@ -21,8 +21,6 @@ folderController.get("/:parentName/new", (req, res) => {
   return res.render("forms/new-folder", { parentName });
 });
 
-// TODO: ADD VALIDATION TO NEW FOLDER
-
 folderController.post(
   "/:parentName/new",
   validateFolder,
@@ -93,6 +91,37 @@ folderController.get("/:name/delete", async (req, res, next) => {
     if (!folder) return res.redirect("/");
 
     await prisma.folder.delete({ where: { id: folder.id } });
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+});
+
+folderController.get("/:name/edit", (req, res) => {
+  const { name } = req.params;
+  res.render("forms/edit-folder", { name });
+});
+
+folderController.post("/:name/edit", async (req, res, next) => {
+  try {
+    if (!req.user) return res.redirect("/");
+    const { name } = req.params;
+    const { newName } = req.body;
+
+    if (!newName)
+      return res.render("forms/edit-folder", {
+        errors: [{ msg: "New folder name cannot be empty" }],
+      });
+
+    const folder = await prisma.folder.findFirst({
+      where: { name: name, ownerId: req.user.id },
+    });
+    if (!folder) return res.status(400).redirect("/");
+
+    await prisma.folder.update({
+      where: { id: folder.id },
+      data: { name: newName },
+    });
     res.redirect("/");
   } catch (error) {
     next(error);
