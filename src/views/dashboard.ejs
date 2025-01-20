@@ -39,7 +39,7 @@
             <button class="ml-auto more-btn">
               <img src="/icons/more.svg" class="w-3 cursor-pointer" alt="">
             </button>
-            <ul class="absolute right-0 z-10 hidden rounded-b top-14 bg-neutral-800">
+            <ul class="absolute right-0 z-10 hidden rounded-b top-14 bg-neutral-800 more-container">
               <li class="p-3">
                 <a href="/folder/<%- folder.name %>/edit">Edit</a>
               </li>
@@ -56,10 +56,10 @@
                 <img class="w-full" src="/icons/file.svg" alt="file">
               </div>
               <a class="text-neutral-200" href="<%- file.file_url %>"><%- file.name %></a>
-              <button class="more-btn">
-                <img src="/icons/more.svg" class="w-3 ml-auto cursor-pointer" alt="">
+              <button class="ml-auto more-btn">
+                <img src="/icons/more.svg" class="w-3 cursor-pointer" alt="">
               </button>
-              <ul class="absolute right-0 z-10 rounded-b top-14 bg-neutral-800">
+              <ul class="absolute right-0 z-10 hidden rounded-b top-14 bg-neutral-800 more-container">
                 <li class="p-3">
                   <a href="/file/<%- file.cloud_id %>/details">View details</a>
                 </li>

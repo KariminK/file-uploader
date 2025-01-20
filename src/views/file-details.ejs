@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File details</title>
+  </head>
+  <body>
+    <h1>File details:</h1>
+    <ul>
+      <li>
+        <b>Name: </b>
+        <span><%- file.name %></span>
+      </li>
+      <li>
+        <b>Size: </b>
+        <span><%- file.size %> KB</span>
+      </li>
+      <li>
+        <b>Upload date: </b>
+        <span><%- file.uploadedAt.toISOString().substring(0, 10) %></span>
+      </li>
+      <li>
+        <b>Owner: </b>
+        <span><%- file.owner.username %></span>
+      </li>
+      <li>
+        <b>Folder: </b>
+        <span><%- file.folder?.name ?? "root" %></span>
+      </li>
+    </ul>
+    <button class="">
+      <a href="<%- file.file_url %>" download>Download</a>
+    </button>
+  </body>
+</html>

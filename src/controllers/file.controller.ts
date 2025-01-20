@@ -4,7 +4,7 @@ import File, { upload } from "../models/File";
 import prisma from "../db/prisma";
 import { FileData } from "../types";
 import { validateFile } from "../validations/fileValidation";
-import bytesToMegabytes from "../helpers/bytesToMegabytes";
+import bytesToMegabytes from "../helpers/sizeConverts";
 
 const fileController = Router();
 
@@ -27,7 +27,7 @@ const uploadFile: RequestHandler = async (req, res, next) => {
       file_url: uploadInfo.url,
       ownerId: req.user.id,
       cloud_id: uploadInfo.public_id,
-      size: bytesToMegabytes(file.size),
+      size: file.size,
     };
 
     if (parentFolder !== "root") {
@@ -91,6 +91,22 @@ fileController.post("/:cloud_id/delete", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+fileController.get("/:cloud_id/details", async (req, res, next) => {
+  const { cloud_id } = req.params;
+  if (!cloud_id) res.redirect("/");
+
+  const file = await prisma.file.findUnique({
+    where: { cloud_id },
+    include: { owner: true, folder: true },
+  });
+
+  if (!file) return res.redirect("/");
+
+  file.size = Math.floor(file.size * 1000);
+
+  res.render("file-details", { file });
 });
 
 export default fileController;
