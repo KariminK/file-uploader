@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "start": "npx ts-node src/index.ts",
+    "start": "npx tailwindcss -i ./src/public/index.css -o ./src/public/tailwind.css && npx ts-node src/index.ts",
     "dev": "npx ts-node-dev src/index.ts",
-    "tailwind": "npx tailwindcss -i ./src/public/index.css -o ./src/public/tailwind.css",
     "tailwind-dev": "npx tailwindcss -i ./src/public/index.css -o ./src/public/tailwind.css --watch"
   },
   "keywords": [],

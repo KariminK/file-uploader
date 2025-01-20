@@ -6,17 +6,53 @@
     <title>Log in</title>
   </head>
   <body>
-    <h1>Log in:</h1>
-    <form action="/user/log-in" method="post">
-      <label for="email-input">Email:</label>
-      <input type="email" name="email" id="email-input" />
-      <br />
-      <label for="password-input">Password:</label>
-      <input type="password" name="password" id="password-input" />
-      <br />
-      <input type="submit" value="Log in" />
-      <a href="/">Cancel</a>
-    </form>
-    <%- include("../partials/formErrors") %>
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in</title>
+    <link rel="stylesheet" href="/tailwind.css" />
+  </head>
+  <body class="max-w-5xl mx-auto bg-neutral-950 text-neutral-50">
+    <%- include("../partials/navbar", {links: [{href: "/", text:"Home"}]}) %>
+    <main class="grid lg:grid-cols-9 lg:gap-28">
+      <form action="/user/log-in" class="px-3 mt-20 lg:col-span-4" method="post">
+        <h1 class="mb-5 text-3xl font-bold">Welcom Back! Log in:</h1>
+        <%- include("../partials/formErrors") %>
+        <label class="block my-10" for="email-input">
+          <p>Email:</p>
+          <input 
+            placeholder="Type here..." 
+            class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400" 
+            type="email" 
+            name="email" 
+            id="email-input" />
+        </label>
+        <label class="block my-10" for="password-input">
+          <p>Password:</p>
+          <input 
+            placeholder="Type here..." 
+            class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400" 
+            type="password" 
+            name="password" 
+            id="password-input" />
+        </label>
+        <div class="flex justify-around">
+          <input 
+            class="px-8 py-4 text-lg text-center transition-colors border-2 border-transparent rounded-full cursor-pointer bg-clip-padding grow bg-gradient-to-r from-indigo-500 to-fuchsia-500 hover:border-fuchsia-300" 
+            type="submit" 
+            value="Log in" />
+          <a class="px-5 py-4 text-lg text-center grow" href="/">Cancel</a>
+        </div>
+      </form>
+      <div class="justify-center hidden align-center place-self-center h-3/4 lg:flex lg:col-span-5">
+        <img src="/img/aurora.jpg" class="aspect-square rounded-3xl brightness-150" alt="">
+      </div>
+    </main>
+    <%- include("../partials/footer") %>
+  </body>
+</html>
+
   </body>
 </html>

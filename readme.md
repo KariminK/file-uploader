@@ -37,8 +37,11 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_SECRET=your_cloudinary_api_secret
 ```
 
-- Start tailwind
-  `npm run tailwind` or `npm run tailwind-dev` for auto-restrt
+- Build tailwind and start server
+  `npm run start`
 
-- Start server
-  `npm run start` or `npm run dev` for auto-restart
+- Start tailwind (auto build)
+  `npm run tailwind-dev`
+
+- Start server (auto restart)
+  `npm run dev`
