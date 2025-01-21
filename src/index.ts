@@ -29,7 +29,6 @@ passport.use(
         const user = await prisma.user.findFirst({
           where: { email },
         });
-        console.log("EMAIL: ", email, "PASSWORD: ", password);
         if (!user) return done(null, false, { message: "Invalid username" });
         const passwordsAreEqual = bcrypt.compare(password, user.password);
         if (!passwordsAreEqual)

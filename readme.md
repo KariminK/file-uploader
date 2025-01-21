@@ -37,6 +37,9 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_SECRET=your_cloudinary_api_secret
 ```
 
+- Run prisma
+  `npx prisma migrate dev`
+
 - Build tailwind and start server
   `npm run start`
 
