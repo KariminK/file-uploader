@@ -2,6 +2,10 @@
 
 **Reach** is minimialistic file-management platform. It allows users to make accounts, perform CRUD on folders, Upload, view and delete files. Files are stored in Cloudinary, while other info is stored in postgresql database.
 
+# Preview-link
+
+This site is deployed at [Koyeb](https://hard-cassie-karimin-5f90ed6e.koyeb.app/)
+
 ## Requirements to run locally
 
 - Postgresql instance
