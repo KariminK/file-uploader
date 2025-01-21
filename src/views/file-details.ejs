@@ -4,33 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File details</title>
+    <link rel="stylesheet" href="/tailwind.css" />
   </head>
-  <body>
-    <h1>File details:</h1>
-    <ul>
-      <li>
-        <b>Name: </b>
-        <span><%- file.name %></span>
-      </li>
-      <li>
-        <b>Size: </b>
-        <span><%- file.size %> KB</span>
-      </li>
-      <li>
-        <b>Upload date: </b>
-        <span><%- file.uploadedAt.toISOString().substring(0, 10) %></span>
-      </li>
-      <li>
-        <b>Owner: </b>
-        <span><%- file.owner.username %></span>
-      </li>
-      <li>
-        <b>Folder: </b>
-        <span><%- file.folder?.name ?? "root" %></span>
-      </li>
-    </ul>
-    <button class="">
-      <a href="<%- file.file_url %>" download>Download</a>
-    </button>
+  <body class="max-w-4xl mx-auto bg-neutral-950 text-neutral-50">
+    <%- include("partials/navbar", {links: [{text: "Home", href: "/"}, {text: "Log out", href: "/user/log-out"}]}) %>
+    <main class="px-5">
+      <h1 class="text-2xl font-bold my-14">File details</h1>
+      <ul>
+        <li class="flex justify-between my-14 align-center">
+          <b>Name: </b>
+          <span><%- file.name %></span>
+        </li>
+        <li class="flex items-center justify-between my-14">
+          <b>Size: </b>
+          <span><%- file.size %> KB</span>
+        </li>
+        <li class="flex items-center justify-between my-14">
+          <b>Upload date: </b>
+          <span><%- file.uploadedAt.toISOString().substring(0, 10) %></span>
+        </li>
+        <li class="flex items-center justify-between my-14">
+          <b>Owner: </b>
+          <span><%- file.owner.username %></span>
+        </li>
+        <li class="flex items-center justify-between my-14">
+          <b>Folder: </b>
+          <span><%- file.folder?.name ?? "root" %></span>
+        </li>
+      </ul>
+      <div class="flex justify-center gap-3">
+        <a href="<%- file.file_url %>">
+          <button class="flex items-center justify-center gap-2 px-8 py-2 font-bold grow rounded-xl bg-fuchsia-400">
+            Download
+            <img src="/icons/download-white.svg" class="w-4" alt="">
+          </button>
+        </a>
+        <a href="/<%- file.folder?.name ?? "" %>">
+          <button class="flex items-center justify-center gap-3 px-4 py-2 font-bold bg-indigo-400 rounded-xl">
+            Go back
+            <img src="/icons/flip-left.svg" class="w-4" alt="">
+          </button>
+        </a>
+      </div>
+    </main>
   </body>
 </html>

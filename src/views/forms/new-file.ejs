@@ -4,16 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload new file</title>
+    <link rel="stylesheet" href="/tailwind.css" />
   </head>
-  <body>
-    <h1>Upload new file:</h1>
-    <%- include("../partials/formErrors") %>
-    <form
-      action="/file/<%- locals.parentFolder %>/upload"
-      enctype="multipart/form-data"
-      method="post">
-      <input type="file" name="file" id="fileInput" />
-      <input type="submit" value="Upload" />
-    </form>
+  <body class="max-w-4xl mx-auto bg-neutral-950 text-neutral-50">
+    <%- include("../partials/navbar", {links: [{text: "Home", href: "/"}]}) %>
+    <main class="max-w-lg px-3 mx-auto ">
+      <h1 class="my-20 text-2xl font-bold lg:text-center">Upload new file:</h1>
+      <%- include("../partials/formErrors") %>
+      <form
+        action="/file/<%- locals.parentFolder %>/upload"
+        enctype="multipart/form-data"
+        method="post">
+        <div class="flex justify-center">
+          <input type="file" class="py-2 font-bold rounded-xl" name="file" id="fileInput" />
+        </div>
+        <div class="flex items-center justify-center mt-20 lg:mx-5">
+          <input 
+            class="px-8 py-4 text-lg text-center transition-colors border-2 border-transparent rounded-full cursor-pointer bg-clip-padding grow lg:grow-0 lg:px-10 bg-gradient-to-r from-indigo-500 to-fuchsia-500 hover:border-fuchsia-300" 
+            type="submit" 
+            value="Upload file" />
+          <a class="px-8 py-4" href="/">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </main>
   </body>
 </html>

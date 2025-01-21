@@ -4,14 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit folder</title>
+    <link rel="stylesheet" href="/tailwind.css">
   </head>
-  <body>
-    <h1>Edit folder name:</h1>
-    <%- include("../partials/formErrors") %>
-    <form action="/folder/<%- locals.name %>/edit" method="post">
-      <label for="newNameInput">New Name:</label>
-      <input type="text" name="newName" id="newNameInput" />
-      <input type="submit" value="Change" />
-    </form>
+  <body class="max-w-4xl mx-auto bg-neutral-950 text-neutral-50">
+    <%- include("../partials/navbar", {links: [{text: "Home", href: "/"}]}) %>
+    <main class="max-w-lg px-3 mx-auto ">
+      <h1 class="my-20 text-2xl font-bold lg:text-center">Edit folder name</h1>
+      <%- include("../partials/formErrors") %>
+      <form action="/folder/<%- locals.name %>/edit" method="post">
+        <label for="nameInput">Name</label>
+        <input 
+          class="w-full p-3 my-2 text-base bg-transparent border border-indigo-400 rounded outline-none placeholder:font-light focus:border-fuchsia-400"
+          type="text" 
+          name="newName" 
+          id="newNameInput" />
+        <div class="flex items-center justify-center mt-20 lg:mx-5">
+          <input 
+            class="px-8 py-4 text-lg text-center transition-colors border-2 border-transparent rounded-full cursor-pointer bg-clip-padding grow lg:grow-0 bg-gradient-to-r from-indigo-500 to-fuchsia-500 hover:border-fuchsia-300" 
+            type="submit" 
+            value="Change" />
+          <a class="px-8 py-4" href="/">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </main>
   </body>
 </html>

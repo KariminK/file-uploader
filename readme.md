@@ -45,3 +45,7 @@ CLOUDINARY_SECRET=your_cloudinary_api_secret
 
 - Start server (auto restart)
   `npm run dev`
+
+## Known Bugs
+
+- Folders don't recognize their parent folders propertly
