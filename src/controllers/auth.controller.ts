@@ -10,12 +10,15 @@ import prisma from "../db/prisma";
 import bcrypt from "bcryptjs";
 import { user } from "@prisma/client";
 import { upload } from "../models/File";
+
 const authController = Router();
 
 const registerUser: RequestHandler = async (req, res, next) => {
   try {
-    delete req.body.confirmPassword;
-    const newUserData: user = req.body;
+    // nie ma potrzeby tutaj mutować tego obiektu, można po prostu nie używać tego pola
+    const { confirmPassword, ...newUserData } = req.body
+    // delete req.body.confirmPassword;
+    // const newUserData: user = req.body;
 
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -30,15 +33,30 @@ const registerUser: RequestHandler = async (req, res, next) => {
       },
     });
 
-    if (
-      existingUser?.email === newUserData.email ||
-      existingUser?.username === newUserData.username
-    )
+    // to co sprawdzasz w tym ifie, sprawdzasz już w sql
+    // wystarczy samo sprawdzenie czy baza coś zwróciła
+    // if (
+    //   existingUser?.email === newUserData.email ||
+    //   existingUser?.username === newUserData.username
+    // )
+    if (existingUser) {
       return res.status(400).render("forms/sign-in", {
         errors: { msg: "Email or username is already in use." },
       });
-    newUserData.password = await bcrypt.hash(newUserData.password, 15);
-    await prisma.user.create({ data: newUserData });
+    }
+
+    // to samo co wyżej, nie ma potrzeby mutować obiektu
+    const { password, ...userPayload } = newUserData
+    // newUserData.password = await bcrypt.hash(newUserData.password, 15);
+    const hashedPassword = await bcrypt.hash(newUserData.password, 15);
+
+    await prisma.user.create({
+      data: {
+        password: hashedPassword,
+        ...userPayload
+      }
+    });
+
     next();
   } catch (error) {
     return next(error);
@@ -79,8 +97,11 @@ authController.post(
 );
 
 authController.get("/log-out", (req, res, next) => {
-  req.logOut((err) => {
-    if (err) return next(err);
+  req.logOut(error => {
+    if (error) {
+      return next(error);
+    }
+
     res.redirect("/");
   });
 });

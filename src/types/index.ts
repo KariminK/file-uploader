@@ -6,6 +6,7 @@ declare global {
   }
 }
 
+// nazwy typów, interfejsów z wielkiej litery
 export interface newFolderData {
   name: string;
   ownerId: number;
