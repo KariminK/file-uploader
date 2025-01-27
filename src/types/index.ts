@@ -1,13 +1,5 @@
-import { user } from "@prisma/client";
-
-declare global {
-  namespace Express {
-    interface User extends user {}
-  }
-}
-
 // nazwy typów, interfejsów z wielkiej litery
-export interface newFolderData {
+export interface NewFolderData {
   name: string;
   ownerId: number;
   parentFolderId: null | number;
