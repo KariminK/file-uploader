@@ -8,12 +8,15 @@ export function checkValidationResult(
   return (req, res, next) => {
     const { parentName } = req.params;
     const errors = validationResult(req);
-    if (!errors.isEmpty())
+
+    if (!errors.isEmpty()) {
       return res.render(view, {
         errors: errors.array({ onlyFirstError: true }),
         parentName,
         ...locals,
       });
-    else next();
+    }
+
+    next();
   };
 }

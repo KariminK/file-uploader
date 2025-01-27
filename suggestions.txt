@@ -1,0 +1,12 @@
+- nie widzę konfiguracji do lintera ani do prettiera, dobrze byłoby dodać
+- widzę, że w readme są opisane envy, oprócz teg można dodać plik .env.example już z konkretnymi wartościami do każdej zmiennej, wtedy jak ktoś będzie chciał to może po prostu zrobić kopiuj wklej do .env, zamiast ręcznie każdą wartość wpisywać. Oczywiście z tymi wartościami, dla których możesz dać przykład, swoich secretów ani api key tam nie wstawiaj
+- te jednolinijkowe if-y albo if-y bez {} do poprawy, to jest bardzo nieczytelne
+- brakuje importowania z plików index.ts
+- jest sporo mutowania kodu. Tego też najlepiej jak najszybciej się oduczyć i przestawić się na używanie tylko const i niemutowanie obiektów. Bardzo rzadko będziesz potrzebował let, natomiast bez mutowania kod będzie dużo czytelniejszy i dużo prostszy do debugowania / utrzymania / rozbudowywania. Może przy takim małym projekcie jak ten tego nie odczujesz, ale jak zaczniesz pisać coś większego albo będziesz pracował na jednym repo z kilkoma osobami to wtedy zobaczysz różnicę
+- rozdzieliłbym routes i controllers na osobne foldery, wtedy też każdy controller mógłby mieć swój router zamiast trzymać je wszystkie zgrupowane w jednym pliku
+- można by było dodać Swaggera
+
+Jeśli chciałbyś pójść krok dalej to:
+- przede wszystkim dobrze byłoby użyć Dockera i tam odpalać obraz do Postgresa. Bez tego każdy kto chce lokalnie odpalić to api, musi mieć zainstalowanego Postgresa na swoim urządzeniu
+- skoro potrafisz już trochę Express to polecam wypróbować NestJS - framework, który domyślnie używa Express pod spodem
+- można dodać trochę testów, np. w Jest

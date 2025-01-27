@@ -12,12 +12,14 @@ fileController.use(IsAuthorized);
 
 fileController.get("/:parentFolder/upload", (req, res) => {
   const { parentFolder } = req.params;
+
   res.render("forms/new-file", { parentFolder });
 });
 
 const uploadFile: RequestHandler = async (req, res, next) => {
   try {
     if (!req.user) return res.redirect("/");
+
     const { parentFolder } = req.params;
     const file = req.file as Express.Multer.File;
     const uploadInfo = await File.uploadFile(file);
@@ -34,16 +36,19 @@ const uploadFile: RequestHandler = async (req, res, next) => {
       const folder = await prisma.folder.findFirst({
         where: { name: parentFolder, ownerId: req.user.id },
       });
+
       if (folder === null)
         return res
           .status(400)
           .render("error", { status: 400, message: "Folder doesn't exist" });
+
       newFileData.folderId = folder.id;
     }
 
     await prisma.file.create({
       data: newFileData,
     });
+
     res.redirect("/");
   } catch (error) {
     next(error);
@@ -59,13 +64,17 @@ fileController.post(
 
 fileController.get("/:cloud_id/delete", async (req, res) => {
   const { cloud_id } = req.params;
+
   const file = await prisma.file.findUnique({
     where: { cloud_id, ownerId: req.user?.id },
   });
+
   if (!file) return res.redirect("/");
+
   res.render("forms/delete-file", { cloud_id, name: file?.name });
 });
 
+// skoro to endpoint do usuwania, to DELETE, zamiast POST
 fileController.post("/:cloud_id/delete", async (req, res, next) => {
   try {
     const { filename } = req.body;
@@ -74,6 +83,7 @@ fileController.post("/:cloud_id/delete", async (req, res, next) => {
     const file = await prisma.file.findUnique({
       where: { cloud_id, ownerId: req.user?.id },
     });
+
     if (!file)
       return res.status(400).render("forms/delete-file", {
         errors: [{ msg: "This file doesn't exist" }],
@@ -85,8 +95,10 @@ fileController.post("/:cloud_id/delete", async (req, res, next) => {
         cloud_id,
         name: file.name,
       });
+
     await File.deleteFile(cloud_id);
     await prisma.file.delete({ where: { cloud_id: file.cloud_id } });
+
     res.redirect("/");
   } catch (error) {
     next(error);
@@ -104,6 +116,7 @@ fileController.get("/:cloud_id/details", async (req, res, next) => {
 
   if (!file) return res.redirect("/");
 
+  // nie ma potrzeby tutaj mutować, można po prostu zwrócić poprawny size w response
   file.size = Math.floor(file.size * 1000);
 
   res.render("file-details", { file });
