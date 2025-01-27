@@ -3,7 +3,7 @@ import { validationResult } from "express-validator";
 
 export function checkValidationResult(
   view: string,
-  locals?: Object
+  locals?: object,
 ): RequestHandler {
   return (req, res, next) => {
     const { parentName } = req.params;

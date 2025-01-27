@@ -1,20 +1,18 @@
 import { RequestHandler, Router } from "express";
 import { IsAuthorized } from "../middlewares/authMiddleware";
-import File, { upload } from "../models/File";
+import File from "../models/File";
 import prisma from "../db/prisma";
 import { FileData } from "../types";
-import { validateFile } from "../validations/fileValidation";
-import bytesToMegabytes from "../helpers/sizeConverts";
 
 const fileController = Router();
 
 fileController.use(IsAuthorized);
 
-fileController.get("/:parentFolder/upload", (req, res) => {
+const getUploadForm: RequestHandler = (req, res) => {
   const { parentFolder } = req.params;
 
   res.render("forms/new-file", { parentFolder });
-});
+};
 
 const uploadFile: RequestHandler = async (req, res, next) => {
   try {
@@ -55,14 +53,7 @@ const uploadFile: RequestHandler = async (req, res, next) => {
   }
 };
 
-fileController.post(
-  "/:parentFolder/upload",
-  upload.single("file"),
-  validateFile,
-  uploadFile
-);
-
-fileController.get("/:cloud_id/delete", async (req, res) => {
+const getDeleteForm: RequestHandler = async (req, res) => {
   const { cloud_id } = req.params;
 
   const file = await prisma.file.findUnique({
@@ -72,10 +63,9 @@ fileController.get("/:cloud_id/delete", async (req, res) => {
   if (!file) return res.redirect("/");
 
   res.render("forms/delete-file", { cloud_id, name: file?.name });
-});
+};
 
-// skoro to endpoint do usuwania, to DELETE, zamiast POST
-fileController.post("/:cloud_id/delete", async (req, res, next) => {
+const deleteFile: RequestHandler = async (req, res, next) => {
   try {
     const { filename } = req.body;
     const { cloud_id } = req.params;
@@ -103,9 +93,9 @@ fileController.post("/:cloud_id/delete", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+};
 
-fileController.get("/:cloud_id/details", async (req, res, next) => {
+const getFileDetails: RequestHandler = async (req, res) => {
   const { cloud_id } = req.params;
   if (!cloud_id) res.redirect("/");
 
@@ -116,10 +106,13 @@ fileController.get("/:cloud_id/details", async (req, res, next) => {
 
   if (!file) return res.redirect("/");
 
-  // nie ma potrzeby tutaj mutować, można po prostu zwrócić poprawny size w response
-  file.size = Math.floor(file.size * 1000);
+  res.render("file-details", { file, size: file.size * 1000 });
+};
 
-  res.render("file-details", { file });
-});
-
-export default fileController;
+export default {
+  getFileDetails,
+  deleteFile,
+  getDeleteForm,
+  getUploadForm,
+  uploadFile,
+};

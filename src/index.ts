@@ -3,22 +3,34 @@ import session from "express-session";
 import passport from "passport";
 import path from "path";
 import { config } from "dotenv";
-import indexRouter from "./controllers";
 import passportLocal from "passport-local";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma";
 import bcrypt from "bcryptjs";
-import "./types";
+import {
+  authRouter,
+  dashboardRouter,
+  fileRouter,
+  folderRouter,
+} from "./routes";
 
 config();
 
 const LocalStrategy = passportLocal.Strategy;
 const app = express();
 const port = process.env.PORT ?? 3000;
-// to powinno iść z envów, każdy powinien móc sobie ustalić jaki expire chce
-// poza tym przy takich zmiennych warto już w samej nazwie dać znać w jakiej to jest jednostce
-// np. sessionExpireInMinutes albo sessionExpireInM
-const sessionExpire = 15 * 60 * 1000; // 15 minutes
+const sessionExpireInMinutes =
+  Number(process.env.SESSION_EXPIRE_DURATION) * 60 * 1000;
+const sessionSecret = process.env.SESSION_SECRET;
+
+if (!sessionSecret) {
+  throw new Error(
+    "Session secret is required. Make sure you have SESSION_SECRET variable in your .env file",
+  );
+}
+if (isNaN(sessionExpireInMinutes)) {
+  throw new Error("Session expire duration must be number");
+}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -48,8 +60,8 @@ passport.use(
       } catch (error) {
         return done(error);
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.serializeUser((user, done) => {
@@ -67,20 +79,22 @@ passport.deserializeUser(async (id: number, done) => {
 
 app.use(
   session({
-    // secret powinien iść też z envów :)
-    secret: "mysecr3t",
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
     store: new PrismaSessionStore(prisma, {
-      checkPeriod: sessionExpire,
+      checkPeriod: sessionExpireInMinutes,
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
     }),
-  })
+  }),
 );
 
 app.use(passport.session());
 
-app.use(indexRouter);
+app.use("/", dashboardRouter);
+app.use("/user", authRouter);
+app.use("/file", fileRouter);
+app.use("/folder", folderRouter);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

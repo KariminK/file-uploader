@@ -48,10 +48,5 @@ export const logInUserSchema: Schema = {
     notEmpty: {
       errorMessage: "Password cannot be empty",
     },
-    // nie wiem czy przy logowaniu jest potrzeba to sprawdzać
-    isStrongPassword: {
-      errorMessage:
-        "Password must have big letter, small letter, number, symbol and must be at least 8 length",
-    },
   },
 };
