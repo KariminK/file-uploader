@@ -11,19 +11,19 @@
       {href: "/user/log-out", text: "Log out"}
     ]}) %>
     <header class="mt-32">  
-      <p class="p-3 text-neutral-300">/<%- locals.parentName !== "root" ? parentName : "" %></p>
+      <p class="p-3 text-neutral-300">/<%- locals.folderId !== "root" ? folderId : "" %></p>
       <ul class="p-3 md:grid md:grid-cols-2 md:gap-5">
         <li class="flex items-center gap-6 p-4 my-3 border border-indigo-400 rounded bg-neutral-800">
           <div class="w-8 text-center">
             <img src="/icons/folder-plus.svg" class="w-full" alt="folder">
           </div>
-          <a class="font-bold" href="/folder/<%- locals.parentName %>/new">Create new folder</a>
+          <a class="font-bold" href="/folder/<%- locals.folderId %>/new">Create new folder</a>
         </li>
         <li class="flex items-center gap-6 p-4 my-3 border rounded border-fuchsia-400 bg-neutral-800">
           <div class="w-8 text-center">
             <img class="w-full" src="/icons/file-plus.svg" alt="file">
           </div>
-          <a class="font-bold" href="/file/<%- locals.parentName %>/upload">Upload new file</a>
+          <a class="font-bold" href="/file/<%- locals.folderId %>/upload">Upload new file</a>
         </li>
       </ul>
     </header>
@@ -35,16 +35,16 @@
             <div class="w-8 text-center">
               <img src="/icons/folder.svg" class="w-full" alt="folder">
             </div>
-            <a class="text-neutral-200" href="/folder/<%- folder.name %> %>"><%- folder.name %></a>
+            <a class="text-neutral-200" href="/folder/<%- folder.id %> %>"><%- folder.name %></a>
             <button class="ml-auto more-btn">
               <img src="/icons/more.svg" class="w-3 cursor-pointer" alt="">
             </button>
             <ul class="absolute right-0 z-10 hidden rounded-b top-14 bg-neutral-800 more-container">
               <li class="p-3">
-                <a href="/folder/<%- folder.name %>/edit">Edit</a>
+                <a href="/folder/<%- folder.id %>/edit">Edit</a>
               </li>
               <li class="p-3">
-                <a class="text-red-400" href="/folder/<%-folder.name%>/delete">Delete folder</a>
+                <a class="text-red-400" href="/folder/<%-folder.id%>/delete">Delete folder</a>
               </li>
             </ul>
           </li>
@@ -69,7 +69,7 @@
               </ul>
             </li>
         <% })} %>
-        <% if (locals.parentName !== "root") { %>
+        <% if (locals.folderId !== "root") { %>
           <li class="flex items-center gap-6 p-4 my-5 border border-indigo-400 rounded md:my-0 bg-neutral-800">
             <div class="w-16 text-center">
               <img src="/icons/double-up.svg" alt="go top">

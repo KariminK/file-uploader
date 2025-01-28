@@ -1,15 +1,14 @@
-// nazwy typów, interfejsów z wielkiej litery
 export interface NewFolderData {
   name: string;
   ownerId: number;
-  parentFolderId: null | number;
+  parentFolderId: null | string;
 }
 
 export interface FileData {
   name: string;
   ownerId: number;
   file_url: string;
-  folderId?: number;
+  folderId?: string;
   cloud_id: string;
   size: number;
 }

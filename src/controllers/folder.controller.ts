@@ -1,37 +1,31 @@
-import { RequestHandler, Router } from "express";
-import { IsAuthorized } from "../middlewares/authMiddleware";
+import { RequestHandler } from "express";
+
 import prisma from "../db/prisma";
 import "../types";
 import { NewFolderData } from "../types";
 import { user } from "@prisma/client";
 
-const folderController = Router();
-
-folderController.use(IsAuthorized);
-
 const getNewFolderForm: RequestHandler = async (req, res) => {
-  const { parentName } = req.params;
+  const { folderId } = req.params;
   const user = req.user as user;
 
-  // czy tu nie trzeba czasem await?
-  const parentFolder = await prisma.folder.findFirst({
-    // ten znak zapytania niepotrzebny, już wcześniej sprawdzasz czy user nie istnieje
-    where: { name: parentName, ownerId: user.id },
+  const parentFolder = await prisma.folder.findUnique({
+    where: { id: folderId, ownerId: user.id },
   });
 
-  if (!parentFolder) {
+  if (!parentFolder && folderId !== "root") {
     return res
       .status(400)
       .render("error", { status: 400, message: "Invalid parent folder name" });
   }
 
-  return res.render("forms/new-folder", { parentName });
+  return res.render("forms/new-folder", { folderId });
 };
 
 const addNewFolder: RequestHandler = async (req, res, next) => {
   try {
     const { name } = req.body;
-    const { parentName } = req.params;
+    const { folderId } = req.params;
     const user = req.user as user;
 
     const folderData: NewFolderData = {
@@ -40,14 +34,14 @@ const addNewFolder: RequestHandler = async (req, res, next) => {
       parentFolderId: null,
     };
 
-    if (parentName === "root") {
+    if (folderId === "root") {
       await prisma.folder.create({ data: folderData });
 
       return res.redirect("/");
     }
 
-    const parentFolder = await prisma.folder.findFirst({
-      where: { name: parentName, ownerId: user.id },
+    const parentFolder = await prisma.folder.findUnique({
+      where: { id: folderId, ownerId: user.id },
     });
 
     if (!parentFolder) {
@@ -73,20 +67,20 @@ const addNewFolder: RequestHandler = async (req, res, next) => {
 
 const getFolderContent: RequestHandler = async (req, res, next) => {
   try {
-    const { name } = req.params;
+    const { folderId } = req.params;
     const user = req.user as user;
 
     const [files, folders] = await Promise.all([
       await prisma.file.findMany({
         where: {
-          folder: { name },
+          folder: { id: folderId },
           ownerId: user.id,
         },
       }),
       await prisma.folder.findMany({
         where: {
           parentFolder: {
-            name: name,
+            id: folderId,
             ownerId: user.id,
           },
         },
@@ -94,10 +88,10 @@ const getFolderContent: RequestHandler = async (req, res, next) => {
     ]);
 
     return res.render("dashboard", {
-      user: req.user,
+      user,
       folders,
-      parentName: name,
-      files: files,
+      folderId,
+      files,
     });
   } catch (error) {
     next(error);

@@ -19,7 +19,7 @@ const getRootFolder: RequestHandler = async (req, res) => {
     user: req.user,
     folders,
     files,
-    parentName: "root",
+    folderId: "root",
   });
 };
 

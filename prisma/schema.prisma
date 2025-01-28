@@ -39,16 +39,16 @@ model file {
   owner      user     @relation(fields: [ownerId], references: [id])
   ownerId    Int
   folder     folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  folderId   Int?
+  folderId   String?
 }
 
 model folder {
-  id             Int      @id @default(autoincrement())
+  id             String   @id @default(cuid(2))
   name           String
   createdAt      DateTime @default(now())
   ownerId        Int
   file           file[]
-  parentFolderId Int?
+  parentFolderId String?
   owner          user     @relation(fields: [ownerId], references: [id])
   parentFolder   folder?  @relation("folderTree", fields: [parentFolderId], references: [id], onDelete: Cascade)
   childFolders   folder[] @relation("folderTree")
