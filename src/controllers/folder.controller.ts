@@ -124,8 +124,8 @@ const deleteFolder: RequestHandler = async (req, res, next) => {
 // folderController.get("/:name/delete", deleteFolder);
 
 const getEditFolderForm: RequestHandler = (req, res) => {
-  const { name } = req.params;
-  res.render("forms/edit-folder", { name });
+  const { folderId } = req.params;
+  res.render("forms/edit-folder", { folderId });
 };
 // folderController.get("/:name/edit", getEditFolderForm);
 

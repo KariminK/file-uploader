@@ -17,11 +17,11 @@ folderRouter.post(
   folderController.addNewFolder,
 );
 
-folderRouter.get("/:name", folderController.getFolderContent);
+folderRouter.get("/:folderId", folderController.getFolderContent);
 
-folderRouter.delete("/:name", folderController.deleteFolder);
+folderRouter.delete("/:folderId", folderController.deleteFolder);
 
-folderRouter.get("/:name", folderController.getEditFolderForm);
+folderRouter.get("/:folderId/edit", folderController.getEditFolderForm);
 
 folderRouter.put(
   "/:name",
